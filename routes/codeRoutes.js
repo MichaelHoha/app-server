@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     res.json(codeBlocks);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/id', async (req, res) => {
     const codeBlock = await getCodeBlockById(req.params.id);
     res.json(codeBlock);
 });

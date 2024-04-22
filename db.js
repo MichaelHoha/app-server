@@ -5,8 +5,8 @@ async function getCodeBlocks() {
     return await CodeBlock.find();
 }
 
-async function getCodeBlockById(id) {
-    return await CodeBlock.findById(id);
+async function getCodeBlockById(title) {
+    return await CodeBlock.findById(title);
 }
 
 module.exports = { getCodeBlocks, getCodeBlockById };
