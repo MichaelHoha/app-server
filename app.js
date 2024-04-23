@@ -6,7 +6,7 @@ const codeBlockRoutes = require("./routes/codeBlockRoutes");
 const codeBlockController = require("./controllers/codeBlockController");
 
 const app = express();
-const server = createServer(app); // Create HTTP server using 'http' module
+const server = createServer(app);
 
 // Middleware
 app.use(cors());
@@ -22,6 +22,11 @@ server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// Initialize Socket.IO server
-const io = new Server(server);
+// Initialize Socket.IO server with CORS options
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 codeBlockController.setupSocketIO(io);
