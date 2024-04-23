@@ -18,7 +18,7 @@ CodeBlock.init(
   {
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
-    participentsCount: DataTypes.INTEGER
+    participents_count: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'CodeBlock',
