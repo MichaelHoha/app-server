@@ -1,5 +1,15 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { DATABASE_URL } = process.env;
+
+const sequelize = new Sequelize(DATABASE_URL, {
+  dialect: 'postgres',
+  ssl: true, // Enable SSL to connect to Heroku PostgreSQL (required)
+  dialectOptions: {
+    ssl: {
+      require: true
+    }
+  }
+});
 
 class CodeBlock extends Model {}
 
