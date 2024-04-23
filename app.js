@@ -1,15 +1,20 @@
 // app.js
-const express = require('express');
+const express = require("express");
 const app = express();
-const codeBlockRoutes = require('./routes/codeBlockRoutes');
-const cors = require('cors');
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+const codeBlockRoutes = require("./routes/codeBlockRoutes");
+const codeBlockController = require("./controllers/codeBlockController");
+const cors = require("cors");
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api', codeBlockRoutes);
+app.use("/api", codeBlockRoutes);
+
+codeBlockController.setupSocketIO(io);
 
 // Start server
 const PORT = process.env.PORT || 3000;

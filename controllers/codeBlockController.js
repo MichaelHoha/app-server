@@ -16,39 +16,38 @@ async function getAllCodeBlocks(req, res) {
 }
 
 // Socket.IO event handling
-io.on("connection", (socket) => {
-  console.log("Client connected");
+// TODO: should be in different file for example codeBlockSocket.js
+function setupSocketIO(io) {
+  io.on("connection", (socket) => {
+    console.log("Client connected");
 
-  // Send initial code content to the client
-  CodeBlock.findAll().then((codeBlocks) => {
-    const initialBlocks = codeBlocks.map((block) => ({
-      id: block.id,
-      content: block.content,
-    }));
-    socket.emit("initialCodeBlocks", initialBlocks);
-  });
-
-  // Listen for code changes from the client
-  socket.on("codeChange", async ({ id, content }) => {
-    // Update the code content in the database
-    const codeBlockById = await CodeBlock.findOne({
-      where: {
-        id,
-      },
+    // Send initial code content to the client
+    CodeBlock.findAll().then((codeBlocks) => {
+      const initialBlocks = codeBlocks.map((block) => ({
+        id: block.id,
+        content: block.content,
+      }));
+      socket.emit("initialCodeBlocks", initialBlocks);
     });
 
-    if (codeBlockById) {
-      codeBlockById.update({ content });
-      // Broadcast the code change to all connected clients
-      io.emit("codeChange", { id, content });
-    }
-  });
+    // Listen for code changes from the client
+    socket.on("codeChange", async ({ id, content }) => {
+      // Update the code content in the database
+      const codeBlockById = await CodeBlock.findOne({
+        where: {
+          id,
+        },
+      });
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
-});
+      if (codeBlockById) {
+        codeBlockById.update({ content });
+        // Broadcast the code change to all connected clients
+        io.emit("codeChange", { id, content });
+      }
+    });
 
-module.exports = {
-  getAllCodeBlocks,
-};
+    socket.on("disconnect", () => {
+      console.log("Client disconnected");
+    });
+  });
+}
