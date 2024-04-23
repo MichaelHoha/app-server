@@ -15,8 +15,6 @@ app.use(express.json());
 // Routes
 app.use("/api", codeBlockRoutes);
 
-codeBlockController.setupSocketIO(io);
-
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
