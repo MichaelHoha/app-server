@@ -2,8 +2,10 @@
 const express = require('express');
 const app = express();
 const codeBlockRoutes = require('./routes/codeBlockRoutes');
+const cors = require('cors');
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
