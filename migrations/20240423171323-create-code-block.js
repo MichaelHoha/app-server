@@ -15,14 +15,14 @@ module.exports = {
       content: {
         type: Sequelize.TEXT
       },
-      participentsCount: {
+      participants_count: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
