@@ -12,7 +12,21 @@ const sequelize = new Sequelize(DATABASE_URL, {
   }
 });
 
-class CodeBlock extends Model {}
+class CodeBlock extends Model {
+  async function getCodeBlockById(id) {
+    try {
+      const codeBlock = await CodeBlock.findOne({
+        where: {
+          id: id
+        }
+      });
+      return codeBlock;
+    } catch (error) {
+      console.error('Error fetching code block by ID:', error);
+      throw error;
+    }
+  }
+}
 
 CodeBlock.init(
   {
