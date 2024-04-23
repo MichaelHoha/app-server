@@ -40,6 +40,9 @@ function setupSocketIO(io) {
         where: {
           id,
         },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
       });
 
       if (codeBlockById) {
