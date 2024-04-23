@@ -1,42 +1,29 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model } = require("sequelize");
 const { DATABASE_URL } = process.env;
 
 const sequelize = new Sequelize(DATABASE_URL, {
-  dialect: 'postgres',
-  ssl: true, 
+  dialect: "postgres",
+  ssl: true,
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false 
-    }
-  }
+      rejectUnauthorized: false,
+    },
+  },
 });
 
-class CodeBlock extends Model {
-  async function getCodeBlockById(id) {
-    try {
-      const codeBlock = await CodeBlock.findOne({
-        where: {
-          id: id
-        }
-      });
-      return codeBlock;
-    } catch (error) {
-      console.error('Error fetching code block by ID:', error);
-      throw error;
-    }
-  }
-}
+class CodeBlock extends Model {}
 
 CodeBlock.init(
   {
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
     participants_count: DataTypes.INTEGER,
-  }, {
+  },
+  {
     sequelize,
-    modelName: 'CodeBlock',
-    tableName: 'code_blocks'
+    modelName: "CodeBlock",
+    tableName: "code_blocks",
   }
 );
 
