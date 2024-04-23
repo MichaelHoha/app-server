@@ -20,9 +20,12 @@ async function getAllCodeBlocks(req, res) {
 function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
-
     // Send initial code content to the client
-    CodeBlock.findAll().then((codeBlocks) => {
+    CodeBlock.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    }).then((codeBlocks) => {
       const initialBlocks = codeBlocks.map((block) => ({
         id: block.id,
         content: block.content,
