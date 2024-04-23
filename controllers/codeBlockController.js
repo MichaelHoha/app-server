@@ -51,3 +51,8 @@ function setupSocketIO(io) {
     });
   });
 }
+
+module.exports = {
+  getAllCodeBlocks,
+  setupSocketIO,
+};
