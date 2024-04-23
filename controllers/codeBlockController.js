@@ -21,11 +21,7 @@ function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
     // Send initial code content to the client
-    CodeBlock.findAll({
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    }).then((codeBlocks) => {
+    CodeBlock.findAll().then((codeBlocks) => {
       const initialBlocks = codeBlocks.map((block) => ({
         id: block.id,
         content: block.content,
@@ -39,9 +35,6 @@ function setupSocketIO(io) {
       const codeBlockById = await CodeBlock.findOne({
         where: {
           id,
-        },
-        attributes: {
-          exclude: ["createdAt", "updatedAt"],
         },
       });
 

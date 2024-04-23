@@ -22,6 +22,7 @@ CodeBlock.init(
   },
   {
     sequelize,
+    timestamps: false,
     modelName: "CodeBlock",
     tableName: "code_blocks",
   }
