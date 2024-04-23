@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getCodeBlocks, getCodeBlockById } = require('../db');
+const { getCodeBlocks, getCodeBlockById } = require('../mongodb/db');
 
 router.get('/', async (req, res) => {
     const codeBlocks = await getCodeBlocks();
