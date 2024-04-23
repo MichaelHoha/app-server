@@ -20,7 +20,7 @@ CodeBlock.init(
     content: DataTypes.TEXT,
     participants_count: DataTypes.INTEGER,
     created_at: DataTypes.DATE,
-    updated_at: DataTypes.INTEDATEGER
+    updated_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'CodeBlock',
