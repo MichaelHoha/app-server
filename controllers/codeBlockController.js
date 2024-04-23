@@ -1,5 +1,6 @@
 // controllers/codeBlockController.js
-const CodeBlock = require('../models/codeBlock');
+const CodeBlock = require('../models/codeblock');
+
 
 async function getAllCodeBlocks(req, res) {
   try {
