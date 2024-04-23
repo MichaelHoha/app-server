@@ -19,8 +19,6 @@ CodeBlock.init(
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
     participants_count: DataTypes.INTEGER,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'CodeBlock',
