@@ -21,12 +21,17 @@ function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
     // Send initial code content to the client
-    CodeBlock.findAll().then((codeBlocks) => {
-      const initialBlocks = codeBlocks.map((block) => ({
-        id: block.id,
-        content: block.content,
-      }));
-      socket.emit("initialCodeBlocks", initialBlocks);
+    socket.on("initialCodeBlock", async ({ id }) => {
+      // Update the code content in the database
+      const codeBlockById = await CodeBlock.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (codeBlockById) {
+        socket.emit("initialCodeBlock", codeBlockById);
+      }
     });
 
     // Listen for code changes from the client
