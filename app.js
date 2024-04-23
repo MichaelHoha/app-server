@@ -1,8 +1,12 @@
 const express = require("express");
-const app = express();
+const cors = require("cors");
+const { createServer } = require("node:http");
+const { Server } = require("socket.io");
 const codeBlockRoutes = require("./routes/codeBlockRoutes");
 const codeBlockController = require("./controllers/codeBlockController");
-const cors = require("cors");
+
+const app = express();
+const server = createServer(app);
 
 // Middleware
 app.use(cors());
@@ -19,5 +23,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-const io = socketIO(app);
+const io = new Server(server);
 codeBlockController.setupSocketIO(io);
