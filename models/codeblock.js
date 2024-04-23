@@ -3,10 +3,11 @@ const { DATABASE_URL } = process.env;
 
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
-  ssl: true, // Enable SSL to connect to Heroku PostgreSQL (required)
+  ssl: true, 
   dialectOptions: {
     ssl: {
-      require: true
+      require: true,
+      rejectUnauthorized: false 
     }
   }
 });
