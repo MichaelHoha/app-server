@@ -27,3 +27,5 @@ CodeBlock.init(
 
 // the defined model is the class itself
 console.log(CodeBlock === sequelize.models.CodeBlock);
+
+module.exports = CodeBlock;
