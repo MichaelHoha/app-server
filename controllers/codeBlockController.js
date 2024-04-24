@@ -71,7 +71,7 @@ function setupSocketIO(io) {
             console.log("codeBlock.title =  " + codeBlock.title);
             participants_count = 0;
             codeBlock.update({ participants_count });
-            io.emit("praticipantesCountDown", { id, participants_count });
+            // io.emit("praticipantesCountDown", { id, participants_count });
           }
         }
       );
