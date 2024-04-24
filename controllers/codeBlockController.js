@@ -69,7 +69,7 @@ function setupSocketIO(io) {
 
           if (codeBlock) {
             codeBlock.participants_count = 0;
-            await codeBlock.save();
+           // await codeBlock.save();
             io.emit("setPraticipantesCount", {
               id: selectedBlockId,
               participants_count: 0,
