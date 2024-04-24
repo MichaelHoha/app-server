@@ -1,5 +1,7 @@
 const CodeBlock = require("../models/codeBlock.js");
 
+// The getAllCodeBlocks function is an asynchronous function that retrieves 
+// all code blocks from the database and sends them as a JSON response.
 async function getAllCodeBlocks(req, res) {
   try {
     const codeBlocks = await CodeBlock.findAll();
@@ -10,8 +12,8 @@ async function getAllCodeBlocks(req, res) {
   }
 }
 
+// should've move this file to deffernt component: for example codeBlockSocket.js
 // Socket.IO event handling
-// TODO: should be in different file for example codeBlockSocket.js
 function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
@@ -44,6 +46,7 @@ function setupSocketIO(io) {
       }
     });
 
+    // seting the number of participants in the code block
     socket.on("setPraticipantesCount", async ({ id, participants_count }) => {
       const codeBlock = await CodeBlock.findOne({
         where: {
@@ -57,6 +60,7 @@ function setupSocketIO(io) {
         io.emit("setPraticipantesCount", { id, participants_count });
       }
 
+      // updates when user is leaving the code block
       socket.on(
         "praticipantesCountDown",
         async ({ id, participants_count }) => {
@@ -68,7 +72,6 @@ function setupSocketIO(io) {
 
           if (codeBlock) {
             participants_count = 0;
-            console.log("codeBlock.title =  " + codeBlock.title);
             codeBlock.update({ participants_count });
              io.emit("praticipantesCountDown", { id, participants_count });
           }

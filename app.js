@@ -15,10 +15,10 @@ app.use(express.json());
 // affect only on routes which starts with '/api'
 app.use("/api", codeBlockRoutes);
 
-// Start server by attaching Express app to HTTP server
+// start server by attaching Express(node.js library for backend) app to HTTP server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  // Use 'server.listen' instead of 'app.listen'
+  // should've do 'server.listen' instead of 'app.listen'
   console.log(`Server is running on port ${PORT}`);
 });
 
