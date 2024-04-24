@@ -4,11 +4,7 @@ const CodeBlock = require("../models/codeBlock.js");
 
 async function getAllCodeBlocks(req, res) {
   try {
-    const codeBlocks = await CodeBlock.findAll({
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
+    const codeBlocks = await CodeBlock.findAll();
     res.json(codeBlocks);
   } catch (error) {
     console.error("Error fetching code blocks:", error);
