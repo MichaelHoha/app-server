@@ -58,36 +58,26 @@ function setupSocketIO(io) {
         io.emit("setPraticipantesCount", { id, participants_count });
       }
 
-      // socket.on(
-      //   "praticipantesCountDown",
-      //   async ({ id, participants_count }) => {
-      //     const codeBlock = await CodeBlock.findOne({
-      //       where: {
-      //         id,
-      //       },
-      //     });
+      socket.on(
+        "praticipantesCountDown",
+        async ({ id, participants_count }) => {
+          const codeBlock = await CodeBlock.findOne({
+            where: {
+              id,
+            },
+          });
 
-      //     if (codeBlock) {
-      //       codeBlock.participants_count = 0;
-      //       codeBlock.update({ participants_count });
-      //       io.emit("setPraticipantesCount", { id, participants_count });
-      //     }
-      //   }
-      // );
+          if (codeBlock) {
+            codeBlock.participants_count = 0;
+            codeBlock.update({ participants_count });
+            io.emit("setPraticipantesCount", { id, participants_count });
+          }
+        }
+      );
     });
 
-    socket.on("disconnect", async ({ id }) => {
-      const codeBlock = await CodeBlock.findOne({
-        where: {
-          id,
-        },
-      });
-    
-      if (codeBlock) {
-        codeBlock.participants_count = 0;
-        await codeBlock.save();
-        io.emit("setPraticipantesCount", { id, participants_count: 0 });
-      }
+    socket.on("disconnect", () => {
+      console.log("Client disconnected");
     });
   });
 }
