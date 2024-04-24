@@ -16,7 +16,7 @@ function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
 
-    // Send initial code content to the client
+    // sends initial code content to the client
     socket.on("initialCodeBlock", async ({ id }) => {
       const codeBlockById = await CodeBlock.findOne({
         where: {
@@ -25,7 +25,6 @@ function setupSocketIO(io) {
       });
 
       if (codeBlockById) {
-        //codeBlockById.participants_count += 1;
         socket.emit("initialCodeBlock", codeBlockById);
       }
     });
@@ -40,7 +39,7 @@ function setupSocketIO(io) {
 
       if (codeBlockById) {
         codeBlockById.update({ content });
-        // Broadcast the code change to all connected clients
+        // sends the code change to all connected users/clients in the frontend
         io.emit("codeChange", { id, content });
       }
     });
@@ -68,8 +67,8 @@ function setupSocketIO(io) {
           });
 
           if (codeBlock) {
-            console.log("codeBlock.title =  " + codeBlock.title);
             participants_count -= 1;
+            console.log("codeBlock.title =  " + codeBlock.title);
             codeBlock.update({ participants_count });
              io.emit("praticipantesCountDown", { id, participants_count });
           }
