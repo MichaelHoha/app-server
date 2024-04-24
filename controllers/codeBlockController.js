@@ -69,11 +69,8 @@ function setupSocketIO(io) {
 
           if (codeBlock) {
             codeBlock.participants_count = 0;
-           // await codeBlock.save();
-            io.emit("setPraticipantesCount", {
-              id: selectedBlockId,
-              participants_count: 0,
-            });
+            codeBlock.update({ participants_count });
+            io.emit("setPraticipantesCount", { id, participants_count });
           }
         }
       );
