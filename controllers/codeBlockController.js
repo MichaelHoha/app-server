@@ -25,7 +25,7 @@ function setupSocketIO(io) {
       });
 
       if (codeBlockById) {
-        console.log("Initial code block sent to client " + codeBlockById);
+        console.log("Initial code block sent to client " + codeBlockById.participants_count);
         socket.emit("initialCodeBlock", codeBlockById);
       }
     });
