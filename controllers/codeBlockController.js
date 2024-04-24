@@ -68,13 +68,10 @@ function setupSocketIO(io) {
           });
 
           if (codeBlock) {
+            console.log("codeBlock.title =  " + codeBlock.title);
             participants_count = 0;
             codeBlock.update({ participants_count });
             io.emit("praticipantesCountDown", { id, participants_count });
-            console.log(
-              "Client participants_countparticipants_countparticipants_count " +
-                participants_count
-            );
           }
         }
       );
