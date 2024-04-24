@@ -57,14 +57,28 @@ function setupSocketIO(io) {
         codeBlock.update({ participants_count });
         io.emit("setPraticipantesCount", { id, participants_count });
 
-        console.log("participants_count!!!!!!!!!!!!!!!!!!  " + codeBlock.participants_count);
-
-        // Emit updated participants count to all clients
-        // io.emit("praticipantesCountUpdated", {
-        //   blockId,
-        //   participantsCount: codeBlock.participants_count,
-        // });
+        console.log(
+          "participants_count!!!!!!!!!!!!!!!!!!  " +
+            codeBlock.participants_count
+        );
       }
+
+      socket.on(
+        "praticipantesCountDown",
+        async ({ id, participants_count }) => {
+          const codeBlock = await CodeBlock.findOne({
+            where: {
+              id,
+            },
+          });
+
+          if (codeBlock) {
+            codeBlock.participants_count = 0;
+            codeBlock.update({ participants_count });
+            io.emit("praticipantesCountDown", { id, participants_count });
+          }
+        }
+      );
     });
 
     socket.on("disconnect", () => {
