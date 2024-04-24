@@ -8,11 +8,11 @@ const codeBlockController = require("./controllers/codeBlockController");
 const app = express();
 const server = createServer(app);
 
-// Middleware
+// this is meadelweras which handles the cors issues
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// affect only on routes which starts with '/api'
 app.use("/api", codeBlockRoutes);
 
 // Start server by attaching Express app to HTTP server

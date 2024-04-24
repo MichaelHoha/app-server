@@ -1,4 +1,3 @@
-// controllers/codeBlockController.js
 const CodeBlock = require("../models/codeBlock.js");
 
 
