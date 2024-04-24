@@ -69,12 +69,11 @@ function setupSocketIO(io) {
 
           if (codeBlock) {
             codeBlock.participants_count = 0;
-            codeBlock.update({ participants_count });
-            console.log(
-              "participants_count!!!!!!!!!!!!!!!!!!  " +
-                codeBlock.participants_count
-            );
-            io.emit("praticipantesCountDown", { id, participants_count });
+            await codeBlock.save();
+            io.emit("setPraticipantesCount", {
+              id: selectedBlockId,
+              participants_count: 0,
+            });
           }
         }
       );
