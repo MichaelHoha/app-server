@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const { DATABASE_URL } = process.env;
 
+// create a new Sequelize instance and connect to the, 
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
   ssl: true,
@@ -12,6 +13,8 @@ const sequelize = new Sequelize(DATABASE_URL, {
   },
 });
 
+
+// define a Sequelize model named CondeBlock that represints the code_blocks tables in the database
 class CodeBlock extends Model {}
 
 CodeBlock.init(
@@ -23,12 +26,12 @@ CodeBlock.init(
   {
     sequelize,
     timestamps: false,
-    modelName: "CodeBlock",
+    modelName: "CodeBlock", 
     tableName: "code_blocks",
   }
 );
 
-// the defined model is the class itself
+// logs whether the CodeBlock_class is the same as the CodeBlock_model
 console.log(CodeBlock === sequelize.models.CodeBlock);
 
 module.exports = CodeBlock;

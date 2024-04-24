@@ -1,7 +1,5 @@
 const CodeBlock = require("../models/codeBlock.js");
 
-
-
 async function getAllCodeBlocks(req, res) {
   try {
     const codeBlocks = await CodeBlock.findAll();
@@ -17,9 +15,9 @@ async function getAllCodeBlocks(req, res) {
 function setupSocketIO(io) {
   io.on("connection", (socket) => {
     console.log("Client connected");
+
     // Send initial code content to the client
     socket.on("initialCodeBlock", async ({ id }) => {
-      // Update the code content in the database
       const codeBlockById = await CodeBlock.findOne({
         where: {
           id,
@@ -27,13 +25,13 @@ function setupSocketIO(io) {
       });
 
       if (codeBlockById) {
+        console.log("Initial code block sent to client " + codeBlockById);
         socket.emit("initialCodeBlock", codeBlockById);
       }
     });
 
-    // Listen for code changes from the client
+    // looking for code changes from the client
     socket.on("codeChange", async ({ id, content }) => {
-      // Update the code content in the database
       const codeBlockById = await CodeBlock.findOne({
         where: {
           id,
@@ -44,6 +42,26 @@ function setupSocketIO(io) {
         codeBlockById.update({ content });
         // Broadcast the code change to all connected clients
         io.emit("codeChange", { id, content });
+      }
+    });
+
+    socket.on("setPraticipantesCount", async ({ id }) => {
+      const codeBlock = await CodeBlock.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (codeBlock) {
+        // Update participants count in the database
+        codeBlock.participants_count += 1;
+        await codeBlock.save();
+
+        // Emit updated participants count to all clients
+        io.emit("praticipantesCountUpdated", {
+          blockId,
+          participantsCount: codeBlock.participants_count,
+        });
       }
     });
 
