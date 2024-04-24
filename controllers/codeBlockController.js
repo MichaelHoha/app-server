@@ -53,7 +53,7 @@ function setupSocketIO(io) {
       });
 
       if (codeBlock) {
-        participants_count = 1;
+        participants_count += 1;
         codeBlock.update({ participants_count });
         io.emit("setPraticipantesCount", { id, participants_count });
       }
@@ -69,7 +69,7 @@ function setupSocketIO(io) {
 
           if (codeBlock) {
             console.log("codeBlock.title =  " + codeBlock.title);
-            participants_count = 0;
+            participants_count -= 1;
             codeBlock.update({ participants_count });
             // io.emit("praticipantesCountDown", { id, participants_count });
           }
