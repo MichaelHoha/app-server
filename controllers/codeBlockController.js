@@ -57,7 +57,7 @@ function setupSocketIO(io) {
         codeBlock.update({ participants_count });
         io.emit("setPraticipantesCount", { id, participants_count });
 
-        console.log("participants_count: " + codeBlock.participants_count);
+        console.log("participants_count!!!!!!!!!!!!!!!!!!  " + codeBlock.participants_count);
 
         // Emit updated participants count to all clients
         // io.emit("praticipantesCountUpdated", {
