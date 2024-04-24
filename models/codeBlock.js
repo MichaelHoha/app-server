@@ -32,3 +32,4 @@ CodeBlock.init(
 console.log(CodeBlock === sequelize.models.CodeBlock);
 
 module.exports = CodeBlock;
+
