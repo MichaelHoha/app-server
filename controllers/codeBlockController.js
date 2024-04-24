@@ -25,9 +25,8 @@ function setupSocketIO(io) {
       });
 
       if (codeBlockById) {
-        codeBlockById.participants_count += 1;
+        //codeBlockById.participants_count += 1;
         socket.emit("initialCodeBlock", codeBlockById);
-        console.log("participants_count: " + codeBlockById.participants_count);
       }
     });
 
@@ -46,25 +45,27 @@ function setupSocketIO(io) {
       }
     });
 
-    // socket.on("setPraticipantesCount", async ({ id }) => {
-    //   const codeBlock = await CodeBlock.findOne({
-    //     where: {
-    //       id,
-    //     },
-    //   });
+    socket.on("setPraticipantesCount", async ({ id, participants_count }) => {
+      const codeBlock = await CodeBlock.findOne({
+        where: {
+          id,
+        },
+      });
 
-    //   if (codeBlock) {
-    //     // Update participants count in the database
-    //     codeBlock.participants_count += 1;
-    //     await codeBlock.save();
+      if (codeBlock) {
+        participants_count++;
+        codeBlock.update({ participants_count });
+        io.emit("setPraticipantesCount", { id, participants_count });
 
-    //     // Emit updated participants count to all clients
-    //     io.emit("praticipantesCountUpdated", {
-    //       blockId,
-    //       participantsCount: codeBlock.participants_count,
-    //     });
-    //   }
-    // });
+        console.log("participants_count: " + codeBlock.participants_count);
+
+        // Emit updated participants count to all clients
+        // io.emit("praticipantesCountUpdated", {
+        //   blockId,
+        //   participantsCount: codeBlock.participants_count,
+        // });
+      }
+    });
 
     socket.on("disconnect", () => {
       console.log("Client disconnected");
